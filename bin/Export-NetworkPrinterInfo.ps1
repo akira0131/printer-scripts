@@ -29,6 +29,7 @@ if(-not($userGroup -Contain('domainGroup¥Domain Admins'))) {
 }
 
 # ネットワークプリンター情報取得
+#
 # Destscription:
 # 各プリンターサーバの情報を取得する
 $config | ForEach-Object {
@@ -40,17 +41,18 @@ $config | ForEach-Object {
         | Export-Csv -Path $config.outputFile -Encording UTF8 -NoTypeInformation
 
 # ヘッダー置換
+#
 # Destscription:
 # 可読性を上げるために日本語に変換する
 Get-Content $config.outputFile | ForEach-Object {
     $_ -Creplace 'PrinterStatus', 'ステータス'
-    $_ -Creplace 'SystemName', '格納先サーバ'
-    $_ -Creplace 'ShareName', '共有名'
-    $_ -Creplace 'AccessName', 'アクセス名'
-    $_ -Creplace 'DriverName', 'ドライバー名'
-    $_ -Creplace 'Location', '設置場所'
-    $_ -Creplace 'PortName', 'プリンターポート'
-    $_ -Creplace 'Comment', 'コメント'
-    $_ -Creplace 'Name', '管理番号'
+    $_ -Creplace 'SystemName',    '格納先サーバ'
+    $_ -Creplace 'ShareName',     '共有名'
+    $_ -Creplace 'AccessName',    'アクセス名'
+    $_ -Creplace 'DriverName',    'ドライバー名'
+    $_ -Creplace 'Location',      '設置場所'
+    $_ -Creplace 'PortName',      'プリンターポート'
+    $_ -Creplace 'Comment',       'コメント'
+    $_ -Creplace 'Name',          '管理番号'
 } `
     | Out-File $config.outputFile
